@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    // environment {
-    //     PATH = "/opt/maven/bin:$PATH"
-    // }
+    environment {
+        PATH = "/usr/local/src/apache-maven/bin:$PATH"
+    }
     stages {
 	
         stage('GitLab Clone') {
