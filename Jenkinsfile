@@ -14,7 +14,7 @@ pipeline {
                 sh "mvn clean install package"
             }
         }  
-        stage('Deploy Tomcat') {
+        /*stage('Deploy Tomcat') {
             steps {
                 deploy adapters: [tomcat9(credentialsId: 'tomcat-admin', 
                 path: '', 
@@ -22,6 +22,19 @@ pipeline {
                 contextPath: 'project02', 
                 war: '**/*.war'                
             }
-        }     
+        }*/     
     }
+    post {
+        success {
+            emailext to: "elrabii@hotmail.com", 
+            recipientProviders: [developers()], 
+            subject: "jenkins Pipe :${currentBuild.currentResult}: ${env.JOB_NAME}", 
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}",
+           
+            attachLog: true
+           
+            //slackSend message: "Build deployed successfully - Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}"
+        }
+    }
+
 }
