@@ -14,15 +14,15 @@ pipeline {
                 sh "mvn clean install package"
             }
         }  
-        /*stage('Deploy Tomcat') {
-            steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-admin', 
-                path: '', 
-                url: 'http://54.183.235.232:8080/')], 
-                contextPath: 'project02', 
-                war: '**/*.war'                
-            }
-        }*/     
+        //stage('Deploy Tomcat') {
+        //    steps {
+        //        deploy adapters: [tomcat9(credentialsId: 'tomcat-admin', 
+        //        path: '', 
+        //        url: 'http://54.183.235.232:8080/')], 
+        //        contextPath: 'project02', 
+        //        war: '**/*.war'                
+        //    }
+        //}     
     }
     post {
         success {
