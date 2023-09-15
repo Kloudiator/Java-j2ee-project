@@ -33,7 +33,7 @@ pipeline {
            
             attachLog: true
            
-            //slackSend message: "Build deployed successfully - Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}"
+            slackSend message: "Build deployed successfully - Job ${env.JOB_NAME}\n More Info can be found here: ${env.BUILD_URL}"
         }
     }
 
