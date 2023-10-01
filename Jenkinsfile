@@ -10,8 +10,15 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            withSonarQubeEnv() {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=project02"
+            stage('SonarQube analysis') {
+                tools {
+                    sonarQube 'SonarQube Scanner 2.8'
+                }
+                steps {
+                    withSonarQubeEnv('SonarQube Scanner') {
+                        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=project02"
+                    }
+                }
             }
         }
         stage('Build Maven') {
