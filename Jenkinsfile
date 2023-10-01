@@ -9,6 +9,12 @@ pipeline {
                 git branch: 'project02', url: 'https://github.com/Kloudiator/Java-j2ee-project.git'
             }
         }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=project02"
+            }
+        }
         stage('Build Maven') {
             steps {
                 sh "mvn clean install package"
@@ -18,7 +24,7 @@ pipeline {
             steps {
                 deploy adapters: [tomcat9(credentialsId: 'tomcat-admin', 
                 path: '', 
-                url: 'http://54.153.52.14:8080/')], 
+                url: 'http://13.52.100.232:8080/')], 
                 contextPath: 'project02', 
                 war: '**/*.war'                
             }
