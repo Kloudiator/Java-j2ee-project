@@ -17,18 +17,25 @@ pipeline {
         //             -Dsonar.login=sqp_ce324451d9e42b3ef2caa48ce13967c332128b9a'''
         //     }
         // }   
-        stage('SAST SonarQube') {
+
+
+          stage("build & SonarQube analysis") {
+            agent any
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn clean package sonar:sonar'
-                }
+              withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package sonar:sonar'
+              }
             }
-        }          
-        // stage("Quality gate") {
-        //     steps {
-        //         waitForQualityGate abortPipeline: true
-        //     }
-        // }           
+          }
+          stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }    
+
+
         stage('Build Maven') {
             steps {
                 sh "mvn clean install package"
