@@ -19,7 +19,7 @@ pipeline {
         // }   
         stage('SAST SonarQube') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonarqube-token') {
+                withSonarQubeEnv('sonarqube') {
                     sh 'mvn clean package sonar:sonar'
                 }
             }
