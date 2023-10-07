@@ -13,10 +13,15 @@ pipeline {
             steps {
                 sh '''mvn clean verify sonar:sonar \\
                     -Dsonar.projectKey=project02 \\
-                    -Dsonar.host.url=http://3.101.62.50:9000 \\
+                    -Dsonar.host.url=http://54.193.181.253/:9000 \\
                     -Dsonar.login=sqp_ce324451d9e42b3ef2caa48ce13967c332128b9a'''
             }
-        }          
+        }       
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }           
         stage('Build Maven') {
             steps {
                 sh "mvn clean install package"
@@ -26,7 +31,7 @@ pipeline {
             steps {
                 deploy adapters: [tomcat9(credentialsId: 'tomcat-admin', 
                 path: '', 
-                url: 'http://13.52.100.232:8080/')], 
+                url: 'http://54.241.91.118:8080/')], 
                 contextPath: 'project02', 
                 war: '**/*.war'                
             }
