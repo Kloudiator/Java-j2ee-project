@@ -9,14 +9,21 @@ pipeline {
                 git branch: 'project02', url: 'https://github.com/Kloudiator/Java-j2ee-project.git'
             }
         }
+        // stage('SAST SonarQube') {
+        //     steps {
+        //         sh '''mvn clean verify sonar:sonar \\
+        //             -Dsonar.projectKey=project02 \\
+        //             -Dsonar.host.url=http://54.193.181.253:9000 \\
+        //             -Dsonar.login=sqp_ce324451d9e42b3ef2caa48ce13967c332128b9a'''
+        //     }
+        // }   
         stage('SAST SonarQube') {
             steps {
-                sh '''mvn clean verify sonar:sonar \\
-                    -Dsonar.projectKey=project02 \\
-                    -Dsonar.host.url=http://54.193.181.253:9000 \\
-                    -Dsonar.login=sqp_ce324451d9e42b3ef2caa48ce13967c332128b9a'''
+                withSonarQubeEnv('sonarqube') {
+                    sh "mvn clean package sonar:sonar"
+                }
             }
-        }       
+        }          
         stage("Quality gate") {
             steps {
                 waitForQualityGate abortPipeline: true
