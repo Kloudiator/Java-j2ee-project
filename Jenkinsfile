@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('GitHub Clone') {
             steps {
-                git branch: 'project02', url: 'https://github.com/Kloudiator/Java-j2ee-project.git'
+                git branch: 'project03', url: 'https://github.com/Kloudiator/Java-j2ee-project.git'
             }
         }
         stage("SAST SonarQube") {
