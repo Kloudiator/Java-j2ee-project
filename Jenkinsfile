@@ -29,21 +29,23 @@ pipeline {
       }
     }  
     stage('Deploy Nexus') {
-      nexusArtifactUploader artifacts: [
-        [
-          artifactId: 'maven-project', 
-          classifier: '', 
-          file: 'webapp/target/webapp.war', 
-          type: 'war'
-        ]
-      ], 
-      credentialsId: 'nexus', 
-      groupId: 'com.example.maven-project', 
-      nexusUrl: '54.219.173.82:8081/', 
-      nexusVersion: 'nexus3', 
-      protocol: 'http', 
-      repository: 'project03', 
-      version: '1.0-SNAPSHOT'
+      steps {
+        nexusArtifactUploader artifacts: [
+          [
+            artifactId: 'maven-project', 
+            classifier: '', 
+            file: 'webapp/target/webapp.war', 
+            type: 'war'
+          ]
+        ], 
+        credentialsId: 'nexus', 
+        groupId: 'com.example.maven-project', 
+        nexusUrl: '54.219.173.82:8081/', 
+        nexusVersion: 'nexus3', 
+        protocol: 'http', 
+        repository: 'project03', 
+        version: '1.0-SNAPSHOT'
+        }
     }
     stage('Deploy Tomcat') {
       steps {
