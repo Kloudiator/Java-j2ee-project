@@ -2,8 +2,6 @@
 - name: Deploy war file to servers
   hosts: all
   become: yes
-  env:
-    ANSIBLE_HOST_KEY_CHECKING: false
 
   tasks:
     - name: Create project05 directory
