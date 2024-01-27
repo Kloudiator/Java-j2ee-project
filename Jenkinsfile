@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Deploy Tomcat with Ansible') {
       steps {
-        ansiblePlaybook become: true, credentialsId: 'ansible-tomcat', installation: 'ansible', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml'          
+        ansiblePlaybook credentialsId: 'ansible-tomcat', installation: 'ansible', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml'          
       }
     }     
   }
