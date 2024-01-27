@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Deploy Tomcat with Ansible') {
       steps {
-        ansiblePlaybook credentialsId: 'ansible-ssh-key', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml', extras: '-e "StrictHostKeyChecking=no"'         
+        ansiblePlaybook credentialsId: 'ansible-ssh-key', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml', extras: '-o "StrictHostKeyChecking=no"'         
         sh 'cp ssh*.key gogo.key'      
       }
     }     
