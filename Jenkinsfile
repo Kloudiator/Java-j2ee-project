@@ -22,7 +22,7 @@ pipeline {
           // sh 'ansible-playbook deploy-war.yaml -i inventory.yaml --private-key devops-ansible_id -u devops-ansible -e disableHostKeyChecking=true'
         }
 
-        ansiblePlaybook credentialsId: 'ansible-ssh-key', become : true, inventory: 'inventory.yaml', playbook: 'deploy-war.yaml', extras: '-e "StrictHostKeyChecking=no"'         
+        ansiblePlaybook credentialsId: 'ansible-ssh-key', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml', extras: '-e "StrictHostKeyChecking=no"'         
       }
     }     
   }
