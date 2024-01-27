@@ -18,7 +18,7 @@ pipeline {
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'keyfile', usernameVariable: 'SSH_USER')]) {
           sh 'cp \$keyfile "devops-ansible_id"'
-          sh 'chmod 0644 "devops-ansible_id"'
+          sh 'chmod 0600 "devops-ansible_id"'
           sh 'ansible-playbook deploy-war.yaml -i inventory.yaml --private-key devops-ansible_id -u devops-ansible -e StrictHostKeyChecking=no'
         }
 
