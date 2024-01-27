@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Deploy Tomcat with Ansible') {
       steps {
-        ansiblePlaybook credentialsId: 'ansible-tomcat', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml'          
+        ansiblePlaybook credentialsId: 'ansible-ssh-key', inventory: 'inventory.yaml', playbook: 'deploy-war.yaml'          
         sh 'cp ssh*.key gogo.key'      
       }
     }     
