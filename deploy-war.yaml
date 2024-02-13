@@ -4,14 +4,24 @@
   become: yes
 
   tasks:
-    - name: Create project05 directory
-      file:
-        path: "/opt/tomcat/latest/webapps/project05"
-        state: directory
-        recurse: yes
-    - name: Copy file
-      copy:
-        src: "webapp/target/webapp.war"
-        dest: "/opt/tomcat/latest/webapps/project05"
-    - name: Unpack war file
-      unarchive: src=/opt/tomcat/latest/webapps/project05/webapp.war dest=/opt/tomcat/latest/webapps/project05 copy=no mode=0755
+    - name: Install Tomcat9
+      apt:
+        name: tomcat9
+        state: present
+
+    - name: Restart Tomcat
+      service:
+        name: tomcat9
+        state: restarted
+
+    # - name: Create project05 directory
+    #   file:
+    #     path: "/opt/tomcat/latest/webapps/project05"
+    #     state: directory
+    #     recurse: yes
+    # - name: Copy file
+    #   copy:
+    #     src: "webapp/target/webapp.war"
+    #     dest: "/opt/tomcat/latest/webapps/project05"
+    # - name: Unpack war file
+    #   unarchive: src=/opt/tomcat/latest/webapps/project05/webapp.war dest=/opt/tomcat/latest/webapps/project05 copy=no mode=0755
