@@ -13,14 +13,14 @@
       service:
         name: tomcat9
         state: restarted
-    # - name: Create project05 directory
-    #   file:
-    #     path: "/opt/tomcat/latest/webapps/project05"
-    #     state: directory
-    #     recurse: yes
-    # - name: Copy file
-    #   copy:
-    #     src: "webapp/target/webapp.war"
-    #     dest: "/opt/tomcat/latest/webapps/project05"
-    # - name: Unpack war file
-    #   unarchive: src=/opt/tomcat/latest/webapps/project05/webapp.war dest=/opt/tomcat/latest/webapps/project05 copy=no mode=0755
+    - name: Create project05 directory
+      file:
+        path: "/var/lib/tomcat9/webapps/ROOT/project05"
+        state: directory
+        recurse: yes
+    - name: Copy file
+      copy:
+        src: "webapp/target/webapp.war"
+        dest: "/var/lib/tomcat9/webapps/ROOT/project05"
+    - name: Unpack war file
+      unarchive: src=/var/lib/tomcat9/webapps/ROOT/project05/webapp.war dest=/var/lib/tomcat9/webapps/ROOT/project05 copy=no mode=0755
