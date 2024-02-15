@@ -13,7 +13,6 @@
       service:
         name: tomcat9
         state: restarted
-
     # - name: Create project05 directory
     #   file:
     #     path: "/opt/tomcat/latest/webapps/project05"
