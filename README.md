@@ -10,19 +10,22 @@ sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 sudo systemctl start docker
 sudo docker run hello-world
 
-
-
-# Utilisez l'image de base Tomcat
+## Dockerfile
+# Use the official Tomcat image as the base image
 FROM tomcat:latest
+# Copy the WAR file into the webapps directory of Tomcat
+COPY path/to/your/application.war /usr/local/tomcat/webapps/
+# Expose the default Tomcat port
+EXPOSE 8080
+# Start Tomcat when the container starts
+CMD ["catalina.sh", "run"]
 
-# Copiez le fichier .war dans le répertoire webapps de Tomcat
-COPY mon_application.war /usr/local/tomcat/webapps/
-
-
-docker build -t nom_image:tag .
-
-
-docker run -d -p 8080:8080 nom_image:tag
-
-
-http://localhost:8080/mon_application
+## Add stage
+# Copy Dockerfile to rhel instance
+sh 'sudo scp Dockerfile ec2-user@172.31.6.109:/home/ec2-user'
+# Copy webapp.war to rhel instance
+sh 'sudo scp webapp/target/webapp.war ec2-user@172.31.6.109:/home/ec2-user'
+# Build Docker image
+sh 'sudo ssh ec2-user@172.31.6.109 \"sudo docker image build -t tomcatp06-img .\"'
+#  Run container
+sh 'sudo ssh ec2-user@172.31.6.109 \"sudo docker container run --name tomcatp06-container --rm -p 8080:8080 -d tomcatp06-img\"'
