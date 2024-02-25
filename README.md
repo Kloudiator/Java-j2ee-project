@@ -22,10 +22,10 @@ CMD ["catalina.sh", "run"]
 
 ## Add stage
 # Copy Dockerfile to rhel instance
-sh "sudo scp -i $SSH_KEY Dockerfile ${sshUser}@${remoteServer}:/tmp"
+sh "sudo scp -i $SSH_KEY Dockerfile ${sshUser}@${remoteServer}:/home/${sshUser}"
 # Copy webapp.war to rhel instance
-sh 'sudo scp -i $SSH_KEY webapp/target/webapp.war ${sshUser}@${remoteServer}:/tmp'
+sh "sudo scp -i $SSH_KEY webapp/target/webapp.war ${sshUser}@${remoteServer}:/home/${sshUser}"
 # Build Docker image
-sh 'sudo ssh ${sshUser}@${remoteServer}:/tmp \"sudo docker image build -t tomcatp06-img .\"'
+sh "sudo ssh -i $SSH_KEY ${sshUser}@${remoteServer} 'sudo docker image build -t tomcatp06-img .'"
 #  Run container
-sh 'sudo ssh ${sshUser}@${remoteServer}:/tmp \"sudo docker container run --name tomcatp06-container --rm -p 8080:8080 -d tomcatp06-img\"'
+sh "sudo ssh -i $SSH_KEY ${sshUser}@${remoteServer} 'sudo docker container run --name tomcatp06-container --rm -p 8080:8080 -d tomcatp06-img'"
