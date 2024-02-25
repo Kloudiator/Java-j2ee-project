@@ -20,8 +20,8 @@ pipeline {
           withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'SSH_KEY')]) {
               def remoteServer = "172.31.6.109"
               def sshUser = 'devops-ansible'
-              sh "sudo scp -i $SSH_KEY Dockerfile ${sshUser}@${remoteServer}"
-              sh "sudo scp -i $SSH_KEY webapp/target/webapp.war ${sshUser}@${remoteServer}"
+              sh "sudo scp -i $SSH_KEY Dockerfile ${sshUser}@${remoteServer}:/home/${sshUser}"
+              sh "sudo scp -i $SSH_KEY webapp/target/webapp.war ${sshUser}@${remoteServer}:/home/${sshUser}"
               sh "sudo ssh -i $SSH_KEY ${sshUser}@${remoteServer} 'sudo docker image build -t tomcatp06-img .'"
               sh "sudo ssh -i $SSH_KEY ${sshUser}@${remoteServer} 'sudo docker container run --name tomcatp06-container --rm -p 8080:8080 -d tomcatp06-img'"
           }
