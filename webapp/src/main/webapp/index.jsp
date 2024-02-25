@@ -1,2 +1,2 @@
-<h1> Hello, Welcome to DevOps training from project05 with ansible playbook!!!</h1>
+<h1> Hello, Welcome to DevOps training from project06 with docker!!!</h1>
 
